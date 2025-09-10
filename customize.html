@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraBloom - Create Your Blend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFFBF5;
+        }
+
+        .font-serif-display {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .choice-card.selected {
+            border-color: #059669; /* Emerald 600 */
+            box-shadow: 0 0 0 2px #059669;
+        }
+
+        .sachet-visualizer {
+            width: 280px;
+            height: 320px;
+            border: 3px solid #D1D5DB; /* Gray 300 */
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column-reverse; /* Stacks items from bottom to top */
+            background-color: white;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .fill-layer {
+            transition: height 0.5s ease-in-out;
+            width: 100%;
+        }
+
+        .ingredient-layer {
+            transition: height 0.5s ease-in-out;
+            width: 100%;
+        }
+        
+        #base-fill {
+            background-color: #FDE68A; /* Default base color */
+        }
+
+        .control-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="py-6 px-6 md:px-12">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold font-serif-display text-emerald-800">AuraBloom</h1>
+            <nav class="hidden md:flex space-x-8 items-center text-gray-600">
+                <a href="index.html" class="hover:text-emerald-800 transition-colors">Home</a>
+                <a href="customize-interactive.html" class="hover:text-emerald-800 transition-colors">Customize</a>
+                <a href="shop.html" class="hover:text-emerald-800 transition-colors">Shop All</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 md:px-12 py-12">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl lg:text-5xl font-serif-display font-bold text-emerald-900">Create Your Perfect Face Pack</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-4">Follow the steps to craft a blend tailored to your skin's needs.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <!-- Left: Sachet Visualizer -->
+            <div class="lg:sticky top-10 flex justify-center items-start">
+                <div class="sachet-visualizer" id="sachet-visualizer">
+                    <!-- Base Layer -->
+                    <div id="base-fill" class="fill-layer"></div>
+                    <!-- Ingredient layers will be dynamically added here by JS -->
+                    
+                    <!-- Overlay Text -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center pointer-events-none">
+                        <span class="text-4xl font-bold text-emerald-900" id="current-weight">2.0g</span>
+                        <span class="text-lg text-gray-600">/ 6.0g</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Control Panel -->
+            <div class="space-y-12">
+                <!-- Step 1: Choose Base -->
+                <section>
+                    <h3 class="text-2xl font-serif-display font-bold text-emerald-900 mb-4">Step 1: Choose Your Base (2g)</h3>
+                    <div id="base-options" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <button class="choice-card p-4 border-2 border-gray-200 rounded-lg text-left transition hover:shadow-lg selected" data-name="Clear Skin" data-color="#FDE68A">
+                            <span class="font-bold block">Clear Skin</span>
+                            <span class="text-sm text-gray-500">Multani Mitti Base</span>
+                        </button>
+                        <button class="choice-card p-4 border-2 border-gray-200 rounded-lg text-left transition hover:shadow-lg" data-name="Tan Removal" data-color="#FED7AA">
+                            <span class="font-bold block">Tan Removal</span>
+                            <span class="text-sm text-gray-500">Sandalwood Base</span>
+                        </button>
+                        <button class="choice-card p-4 border-2 border-gray-200 rounded-lg text-left transition hover:shadow-lg" data-name="Oil Control" data-color="#FBCFE8">
+                             <span class="font-bold block">Oil Control</span>
+                            <span class="text-sm text-gray-500">Rose Clay Base</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Step 2: Add Ingredients -->
+                <section>
+                    <h3 class="text-2xl font-serif-display font-bold text-emerald-900 mb-4">Step 2: Add Your Ingredients (up to 4g)</h3>
+                    <div id="ingredient-options" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Ingredient Card -->
+                        <div class="bg-white p-4 rounded-lg shadow flex justify-between items-center border-l-8" data-name="Turmeric" data-color="#FBBF24">
+                            <div>
+                                <p class="font-bold">Turmeric</p>
+                                <p class="text-sm text-gray-500" data-amount-display>0.0g</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button class="control-btn minus-btn bg-gray-200 w-8 h-8 rounded-full font-bold text-lg">-</button>
+                                <button class="control-btn plus-btn bg-emerald-600 text-white w-8 h-8 rounded-full font-bold text-lg">+</button>
+                            </div>
+                        </div>
+                        <!-- Ingredient Card -->
+                        <div class="bg-white p-4 rounded-lg shadow flex justify-between items-center border-l-8" data-name="Aloe Vera" data-color="#86EFAC">
+                             <div>
+                                <p class="font-bold">Aloe Vera</p>
+                                <p class="text-sm text-gray-500" data-amount-display>0.0g</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button class="control-btn minus-btn bg-gray-200 w-8 h-8 rounded-full font-bold text-lg">-</button>
+                                <button class="control-btn plus-btn bg-emerald-600 text-white w-8 h-8 rounded-full font-bold text-lg">+</button>
+                            </div>
+                        </div>
+                         <!-- Ingredient Card -->
+                        <div class="bg-white p-4 rounded-lg shadow flex justify-between items-center border-l-8" data-name="Coffee" data-color="#D4A57E">
+                             <div>
+                                <p class="font-bold">Coffee</p>
+                                <p class="text-sm text-gray-500" data-amount-display>0.0g</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button class="control-btn minus-btn bg-gray-200 w-8 h-8 rounded-full font-bold text-lg">-</button>
+                                <button class="control-btn plus-btn bg-emerald-600 text-white w-8 h-8 rounded-full font-bold text-lg">+</button>
+                            </div>
+                        </div>
+                        <!-- Ingredient Card -->
+                        <div class="bg-white p-4 rounded-lg shadow flex justify-between items-center border-l-8" data-name="Neem" data-color="#65A30D">
+                             <div>
+                                <p class="font-bold">Neem</p>
+                                <p class="text-sm text-gray-500" data-amount-display>0.0g</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button class="control-btn minus-btn bg-gray-200 w-8 h-8 rounded-full font-bold text-lg">-</button>
+                                <button class="control-btn plus-btn bg-emerald-600 text-white w-8 h-8 rounded-full font-bold text-lg">+</button>
+                            </div>
+                        </div>
+                        <!-- Ingredient Card -->
+                        <div class="bg-white p-4 rounded-lg shadow flex justify-between items-center border-l-8" data-name="Rose Petal" data-color="#F472B6">
+                             <div>
+                                <p class="font-bold">Rose Petal</p>
+                                <p class="text-sm text-gray-500" data-amount-display>0.0g</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button class="control-btn minus-btn bg-gray-200 w-8 h-8 rounded-full font-bold text-lg">-</button>
+                                <button class="control-btn plus-btn bg-emerald-600 text-white w-8 h-8 rounded-full font-bold text-lg">+</button>
+                            </div>
+                        </div>
+                         <!-- Ingredient Card -->
+                        <div class="bg-white p-4 rounded-lg shadow flex justify-between items-center border-l-8" data-name="Hibiscus" data-color="#F0ABFC">
+                             <div>
+                                <p class="font-bold">Hibiscus</p>
+                                <p class="text-sm text-gray-500" data-amount-display>0.0g</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button class="control-btn minus-btn bg-gray-200 w-8 h-8 rounded-full font-bold text-lg">-</button>
+                                <button class="control-btn plus-btn bg-emerald-600 text-white w-8 h-8 rounded-full font-bold text-lg">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Step 3: Finalize -->
+                <section>
+                    <button class="w-full bg-emerald-800 text-white font-bold py-4 px-8 rounded-lg hover:bg-emerald-900 transition-transform transform hover:scale-105 shadow-lg text-lg">
+                        Finalize & Add to Box
+                    </button>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const MAX_WEIGHT = 6.0;
+            const BASE_WEIGHT = 2.0;
+            const INCREMENT = 0.5;
+
+            const ingredientAmounts = {}; // Tracks amount per ingredient name
+            const addedIngredientsStack = []; // Tracks order of additions for rendering
+
+            // DOM Elements
+            const sachetVisualizer = document.getElementById('sachet-visualizer');
+            const baseFill = document.getElementById('base-fill');
+            const currentWeightDisplay = document.getElementById('current-weight');
+            const baseOptions = document.getElementById('base-options');
+            const ingredientOptions = document.getElementById('ingredient-options');
+            
+            // --- FUNCTIONS ---
+            const renderSachet = () => {
+                // 1. Clear old ingredient layers
+                sachetVisualizer.querySelectorAll('.ingredient-layer').forEach(el => el.remove());
+
+                // 2. Calculate total ingredient weight
+                const ingredientWeight = addedIngredientsStack.length * INCREMENT;
+                const totalWeight = BASE_WEIGHT + ingredientWeight;
+
+                // 3. Update text display
+                currentWeightDisplay.textContent = `${totalWeight.toFixed(1)}g`;
+
+                // 4. Update base fill height
+                const baseHeight = (BASE_WEIGHT / MAX_WEIGHT) * 100;
+                baseFill.style.height = `${baseHeight}%`;
+
+                // 5. Render new ingredient layers from the stack
+                addedIngredientsStack.forEach(ingredient => {
+                    const layer = document.createElement('div');
+                    layer.classList.add('ingredient-layer');
+                    layer.style.backgroundColor = ingredient.color;
+                    layer.style.height = `${(INCREMENT / MAX_WEIGHT) * 100}%`;
+                    sachetVisualizer.appendChild(layer);
+                });
+                
+                // 6. Disable/Enable plus buttons
+                const isMax = totalWeight >= MAX_WEIGHT;
+                document.querySelectorAll('.plus-btn').forEach(btn => btn.disabled = isMax);
+            };
+
+            // --- EVENT LISTENERS ---
+            // 1. Base Selection
+            baseOptions.addEventListener('click', (e) => {
+                const selectedCard = e.target.closest('.choice-card');
+                if (!selectedCard) return;
+                document.querySelectorAll('#base-options .choice-card').forEach(card => card.classList.remove('selected'));
+                selectedCard.classList.add('selected');
+                baseFill.style.backgroundColor = selectedCard.dataset.color;
+            });
+
+            // 2. Ingredient Selection
+            ingredientOptions.addEventListener('click', (e) => {
+                const button = e.target;
+                const card = button.closest('.bg-white');
+                if (!card) return;
+
+                const ingredientName = card.dataset.name;
+                const ingredientColor = card.dataset.color;
+                const amountDisplay = card.querySelector('[data-amount-display]');
+                
+                // Initialize if not present
+                ingredientAmounts[ingredientName] = ingredientAmounts[ingredientName] || 0.0;
+
+                // Handle Plus Button
+                if (button.classList.contains('plus-btn') && (BASE_WEIGHT + (addedIngredientsStack.length * INCREMENT)) < MAX_WEIGHT) {
+                    ingredientAmounts[ingredientName] += INCREMENT;
+                    addedIngredientsStack.push({ name: ingredientName, color: ingredientColor });
+                }
+
+                // Handle Minus Button
+                if (button.classList.contains('minus-btn') && ingredientAmounts[ingredientName] > 0) {
+                    ingredientAmounts[ingredientName] -= INCREMENT;
+                    // Find the last index of this ingredient in the stack to remove it
+                    for (let i = addedIngredientsStack.length - 1; i >= 0; i--) {
+                        if (addedIngredientsStack[i].name === ingredientName) {
+                            addedIngredientsStack.splice(i, 1);
+                            break; // Exit after removing one
+                        }
+                    }
+                }
+                
+                amountDisplay.textContent = `${ingredientAmounts[ingredientName].toFixed(1)}g`;
+                renderSachet();
+            });
+
+            // --- INITIALIZATION ---
+            // Set initial border colors for ingredient cards
+            ingredientOptions.querySelectorAll('.bg-white').forEach(card => {
+                card.style.borderColor = card.dataset.color;
+            });
+            
+            // Initial render
+            renderSachet();
+        });
+    </script>
+</body>
+</html>
+

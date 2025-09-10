@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraBloom - Shop All</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FFFBF5;
+        }
+
+        .font-serif-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .product-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="py-6 px-6 md:px-12">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold font-serif-display text-emerald-800">AuraBloom</h1>
+            <nav class="hidden md:flex space-x-8 items-center text-gray-600">
+                <a href="index.html" class="hover:text-emerald-800 transition-colors">Home</a>
+                <a href="customize-interactive.html" class="hover:text-emerald-800 transition-colors">Customize</a>
+                <a href="shop.html" class="hover:text-emerald-800 transition-colors">Shop All</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 md:px-12 py-12">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl lg:text-5xl font-serif-display font-bold text-emerald-900">Our Collection</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-4">Discover nature's finest, packed for your convenience.</p>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+            <!-- Product Card: Radiance -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card">
+                <img src="images\ytt.jpg" alt="Radiance Face Pack Box" class="w-full h-80 object-cover">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold font-serif-display text-emerald-800">Radiance Pack</h4>
+                    <p class="text-gray-600 mt-2 mb-4">7 days to brighter, fresher skin with a blend of turmeric and botanicals.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-emerald-700">$24.99</span>
+                        <button class="bg-emerald-700 text-white font-medium py-2 px-6 rounded-full hover:bg-emerald-800 transition-all duration-300 transform hover:scale-105">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card: Calm -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card">
+                <img src="images\bvc.jpg" alt="Calm Face Pack Box" class="w-full h-80 object-cover">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold font-serif-display text-emerald-800">Calm Pack</h4>
+                    <p class="text-gray-600 mt-2 mb-4">Cool, calm, and hydrate your skin with our refreshing aloe and cucumber mix.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-emerald-700">$22.99</span>
+                        <button class="bg-emerald-700 text-white font-medium py-2 px-6 rounded-full hover:bg-emerald-800 transition-all duration-300 transform hover:scale-105">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card: Rejuvenate (Rich) -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card">
+                <img src="images\abc.jpg" alt="Rejuvenate Face Pack Box" class="w-full h-80 object-cover">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold font-serif-display text-emerald-800">Rejuvenate Pack (Rich)</h4>
+                    <p class="text-gray-600 mt-2 mb-4">A rich, coffee-infused blend to awaken your skin and restore its natural vitality.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-emerald-700">$26.99</span>
+                        <button class="bg-emerald-700 text-white font-medium py-2 px-6 rounded-full hover:bg-emerald-800 transition-all duration-300 transform hover:scale-105">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card: Herbal Face Duo -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card">
+                <img src="images\ppp.jpg" alt="Herbal Face Duo Pack Box" class="w-full h-80 object-cover">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold font-serif-display text-emerald-800">Herbal Face Duo</h4>
+                    <p class="text-gray-600 mt-2 mb-4">A 7-day treatment for day and night to give your skin a complete herbal glow.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-emerald-700">$29.99</span>
+                        <button class="bg-emerald-700 text-white font-medium py-2 px-6 rounded-full hover:bg-emerald-800 transition-all duration-300 transform hover:scale-105">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Card: Rejuvenate (Classic) -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden product-card">
+                <img src="images\pop.jpg" alt="Rejuvenate Face Pack Box" class="w-full h-80 object-cover">
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold font-serif-display text-emerald-800">Rejuvenate Pack (Classic)</h4>
+                    <p class="text-gray-600 mt-2 mb-4">The original coffee and tea leaf blend for a refreshing, timeless experience.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-emerald-700">$25.99</span>
+                        <button class="bg-emerald-700 text-white font-medium py-2 px-6 rounded-full hover:bg-emerald-800 transition-all duration-300 transform hover:scale-105">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-emerald-900 text-white mt-20">
+        <div class="container mx-auto py-10 px-6 md:px-12 text-center">
+            <p>&copy; 2024 AuraBloom. All Rights Reserved.</p>
+            <p class="mt-2 text-sm text-emerald-200">Embrace your natural beauty.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
