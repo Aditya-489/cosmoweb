@@ -28,6 +28,14 @@
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
     </style>
+    <!-- Mobile Navigation Menu -->
+<nav id="mobile-menu" class="md:hidden hidden bg-white shadow-lg px-6 py-4 absolute top-20 left-0 right-0 z-50">
+    <a href="#" class="block py-2 text-gray-700 hover:text-emerald-800">Home</a>
+    <a href="customize.html" class="block py-2 text-gray-700 hover:text-emerald-800">customise</a>
+    <a href="#" class="block py-2 text-gray-700 hover:text-emerald-800">Shop All</a>
+    <a href="#" class="block py-2 bg-emerald-700 text-white rounded-full text-center mt-2">Contact Us</a>
+</nav>
+
 </head>
 <body class="text-gray-800">
 
@@ -131,6 +139,13 @@
             <p class="mt-2 text-sm text-emerald-200">Embrace your natural beauty.</p>
         </div>
     </footer>
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 
 </body>
 </html>
